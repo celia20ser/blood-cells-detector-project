@@ -1,0 +1,415 @@
+{
+  "names": {
+    "0": "RBC",
+    "1": "Platelets",
+    "2": "Neutrophil",
+    "3": "Lymphocyte",
+    "4": "Monocyte",
+    "5": "Eosinophil",
+    "6": "Basophil"
+  },
+  "nc": 7,
+  "yaml": {
+    "nc": 7,
+    "end2end": true,
+    "reg_max": 1,
+    "scales": {
+      "n": [
+        0.5,
+        0.25,
+        1024
+      ],
+      "s": [
+        0.5,
+        0.5,
+        1024
+      ],
+      "m": [
+        0.5,
+        1.0,
+        512
+      ],
+      "l": [
+        1.0,
+        1.0,
+        512
+      ],
+      "x": [
+        1.0,
+        1.5,
+        512
+      ]
+    },
+    "backbone": [
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          64,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          128,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          256,
+          false,
+          0.25
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          256,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          false,
+          0.25
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          512,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          1024,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          1024,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "SPPF",
+        [
+          1024,
+          5,
+          3,
+          true
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C2PSA",
+        [
+          1024
+        ]
+      ]
+    ],
+    "head": [
+      [
+        -1,
+        1,
+        "nn.Upsample",
+        [
+          "None",
+          2,
+          "nearest"
+        ]
+      ],
+      [
+        [
+          -1,
+          6
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "nn.Upsample",
+        [
+          "None",
+          2,
+          "nearest"
+        ]
+      ],
+      [
+        [
+          -1,
+          4
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          256,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          256,
+          3,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          13
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          512,
+          3,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          10
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        1,
+        "C3k2",
+        [
+          1024,
+          true,
+          0.5,
+          true
+        ]
+      ],
+      [
+        [
+          16,
+          19,
+          22
+        ],
+        1,
+        "Detect",
+        [
+          "nc"
+        ]
+      ]
+    ],
+    "scale": "m",
+    "yaml_file": "yolo26m.yaml",
+    "channels": 3
+  },
+  "task": "detect",
+  "stride": [
+    8.0,
+    16.0,
+    32.0
+  ],
+  "imgsz": 640,
+  "ultralytics_version_trained": "8.4.41",
+  "ultralytics_version_used_to_package": "8.4.41",
+  "torch_version_used_to_package": "2.5.1+cu121",
+  "date": "2026-04-26T23:35:38.601258",
+  "train_args": {
+    "task": "detect",
+    "mode": "train",
+    "model": "/home/nicolas/Desktop/blood-cells-detector-project/blood_detector_model.pt",
+    "data": "/home/nicolas/Desktop/blood-cells-detector-project/clinic_finetune_dataset/data.yaml",
+    "epochs": 15,
+    "time": null,
+    "patience": 5,
+    "batch": 16,
+    "imgsz": 640,
+    "save": true,
+    "save_period": -1,
+    "cache": false,
+    "device": "0",
+    "workers": 8,
+    "project": "/home/nicolas/Desktop/blood-cells-detector-project/runs",
+    "name": "finetune_clinic",
+    "exist_ok": true,
+    "pretrained": true,
+    "optimizer": "auto",
+    "verbose": true,
+    "seed": 0,
+    "deterministic": true,
+    "single_cls": false,
+    "rect": false,
+    "cos_lr": true,
+    "close_mosaic": 5,
+    "resume": false,
+    "amp": true,
+    "fraction": 1.0,
+    "profile": false,
+    "freeze": 10,
+    "multi_scale": 0.0,
+    "compile": false,
+    "overlap_mask": true,
+    "mask_ratio": 4,
+    "dropout": 0.0,
+    "val": true,
+    "split": "val",
+    "save_json": false,
+    "conf": null,
+    "iou": 0.7,
+    "max_det": 300,
+    "half": false,
+    "dnn": false,
+    "plots": true,
+    "end2end": null,
+    "source": null,
+    "vid_stride": 1,
+    "stream_buffer": false,
+    "visualize": false,
+    "augment": false,
+    "agnostic_nms": false,
+    "classes": null,
+    "retina_masks": false,
+    "embed": null,
+    "show": false,
+    "save_frames": false,
+    "save_txt": false,
+    "save_conf": false,
+    "save_crop": false,
+    "show_labels": true,
+    "show_conf": true,
+    "show_boxes": true,
+    "line_width": null,
+    "format": "torchscript",
+    "keras": false,
+    "optimize": false,
+    "int8": false,
+    "dynamic": false,
+    "simplify": true,
+    "opset": null,
+    "workspace": null,
+    "nms": false,
+    "lr0": 0.0001,
+    "lrf": 0.01,
+    "momentum": 0.937,
+    "weight_decay": 0.0005,
+    "warmup_epochs": 2,
+    "warmup_momentum": 0.8,
+    "warmup_bias_lr": 0.0,
+    "box": 7.5,
+    "cls": 0.5,
+    "cls_pw": 0.0,
+    "dfl": 1.5,
+    "pose": 12.0,
+    "kobj": 1.0,
+    "rle": 1.0,
+    "angle": 1.0,
+    "nbs": 64,
+    "hsv_h": 0.015,
+    "hsv_s": 0.5,
+    "hsv_v": 0.3,
+    "degrees": 15,
+    "translate": 0.1,
+    "scale": 0.5,
+    "shear": 0.0,
+    "perspective": 0.0,
+    "flipud": 0.5,
+    "fliplr": 0.5,
+    "bgr": 0.0,
+    "mosaic": 0.5,
+    "mixup": 0.0,
+    "cutmix": 0.0,
+    "copy_paste": 0.0,
+    "copy_paste_mode": "flip",
+    "auto_augment": "randaugment",
+    "erasing": 0.4,
+    "cfg": null,
+    "tracker": "botsort.yaml",
+    "save_dir": "/home/nicolas/Desktop/blood-cells-detector-project/runs/finetune_clinic"
+  }
+}
