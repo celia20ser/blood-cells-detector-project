@@ -371,8 +371,8 @@ with tab_sample:
             col = cols[idx % 3]
             with col:
                 thumb = Image.open(img_path).convert("RGB")
-                st.image(thumb, caption=img_path.stem.replace("_", " ").title(), use_container_width=True)
-                if st.button(f"Use this image", key=f"sample_{idx}", use_container_width=True):
+                st.image(thumb, caption=img_path.stem.replace("_", " ").title(), use_container_width=True,)
+                if st.button(f"Use this image", key=f"sample_{idx}", use_container_width=True,):
                     input_image = thumb
                     image_name = img_path.name
     else:
@@ -455,11 +455,11 @@ if input_image is not None:
 
     with col_orig:
         st.markdown("**Original Image**")
-        st.image(input_image, use_container_width=True)
+        st.image(input_image, use_container_width=True,)
 
     with col_det:
         st.markdown("**Detected Cells**")
-        st.image(annotated_rgb, use_container_width=True)
+        st.image(annotated_rgb, use_container_width=True,)
 
     # --- Detailed breakdown ---
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
