@@ -110,6 +110,24 @@ CLI:
 yolo predict model=blood_detector_model.pt source=smear.jpg imgsz=640 conf=0.25
 ```
 
+## Web Application 🚀
+
+A modern, interactive web interface is included for easy use without coding.
+
+### Features
+- **Interactive Detection:** Upload any blood smear image and see results instantly.
+- **Adjustable Parameters:** Fine-tune confidence and IoU thresholds via the sidebar.
+- **Detailed Analytics:** Get cell counts and a White Blood Cell (WBC) differential breakdown.
+- **Dark Mode UI:** Premium, scientific-themed design.
+
+### Run Locally
+To run the web app on your machine:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Launch the app: `streamlit run app.py`
+
+### Deployment
+This app is ready for deployment on [Streamlit Community Cloud](https://streamlit.io/cloud).
+
 ## Recommended inference settings
 
 - `imgsz=640` (the model was trained at this resolution; larger sizes also work but are not validated).
